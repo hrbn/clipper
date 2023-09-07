@@ -1,0 +1,27 @@
+{% extends "clipper/layout.html" %}
+{% load django_bootstrap5 %}
+{% block head %}
+  {{ form.media }}
+{% endblock head %}
+{% block body %}
+  <nav aria-label="breadcrumb" class="my-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'dashboard' %}"><i class="bi bi-house-door-fill"></i></a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Add Clip</li>
+    </ol>
+  </nav>
+  <div>
+    <div class="row">
+      <div class="col-10 offset-1">
+        <h4 class="text-center">Add a new Clip</h4>
+        <form action="{% url 'add' %}" method="post" id="add-form">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          {% bootstrap_button button_type="submit" content="Save" %}
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock body %}

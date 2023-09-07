@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Leckerli+One&display=swap');
+
+.card:hover {
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
+  border-color: var(--bs-primary-border-subtle);
+}
+
+[data-bs-theme='dark'] .card:hover {
+  box-shadow: 0 0 16px 0 rgba(255, 255, 255, 0.1);
+  border-color: var(--bs-primary-border-subtle);
+}
+
+.slant {
+  display: inline-block;
+  transform: rotate(30deg);
+}
+
+.brand {
+  font-family: 'Leckerli One', cursive;
+}
+
+.nav-link {
+  line-height: 2;
+}
+#search-input {
+  width: 300px;
+  transition: all 0.5s ease-in-out;
+}

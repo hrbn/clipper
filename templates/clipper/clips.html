@@ -1,0 +1,21 @@
+{% load django_bootstrap5 %}
+{% block content %}
+  <div class="container-fluid">
+    <div class="row row-cols-lg-2">
+      {% for clip in clips %}
+        <div class="col">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h4 class="card-title mb-0">{{ clip.title }}</h4>
+            </div>
+            <div class="card-body">
+              {{ clip.tags.all|join:", " }}
+              <h5>{{ clip.url }}</h5>
+              <div class="card-text">{{ clip.content|safe }}</div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}

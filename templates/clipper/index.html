@@ -1,0 +1,25 @@
+{% extends "clipper/layout.html" %}
+{% load static %}
+{% block body %}
+  <section class="px-5 py-6 py-xxl-10">
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col-12 col-md-11 col-lg-9 col-xl-7 col-xxl-6 text-center">
+          <h1 class="display-3 fw-bold mb-3 mt-5">
+            <span class="slant"><i class="bi bi-paperclip"></span></i><span class="brand">Clipper</span>
+          </h1>
+          <p class="lead mb-5">A handy tool to save and organize your web clips, links, and rich text notes.</p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            {% if user.is_authenticated %}
+              <a href="{% url 'dashboard' %}"
+                 class="btn btn-primary btn-lg px-4 gap-3">Go to Your Dashboard</a>
+            {% else %}
+              <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-4 gap-3">Login</a>
+              <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-4">Register</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock body %}

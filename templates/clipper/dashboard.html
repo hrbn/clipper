@@ -1,0 +1,82 @@
+{% extends "clipper/layout.html" %}
+{% load django_bootstrap5 %}
+{% block title %}
+  Dashboard
+{% endblock title %}
+{% block head %}
+{% endblock head %}
+{% block body %}
+  <nav aria-label="breadcrumb" class="my-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'dashboard' %}"><i class="bi bi-house-door-fill"></i></a>
+      </li>
+      {% if "q" in request.GET %}
+        <li class="breadcrumb-item active" aria-current="page">Search for "{{ request.GET.q }}"</li>
+      {% endif %}
+      {% if "tag" in request.GET %}
+        <li class="breadcrumb-item active" aria-current="page">Tagged with "{{ request.GET.tag }}"</li>
+      {% endif %}
+    </ol>
+  </nav>
+  <div class="container">
+    <h1>Dashboard</h1>
+    <div class="row row-cols-auto g-2">
+      <div class="col-xl-11 col-lg-10 col-md-8 col-sm">
+        <div class="row row-cols-auto g-2">
+          {% for clip in clips %}
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm">
+              <a href="{% url 'edit' clip.id %}"
+                 class="text-decoration-none text-body">
+                <div class="card mb-4 bg-body-tertiary">
+                  <div class="card-body ">
+                    <h5 class="card-title fs-6">{{ clip.title|truncatewords:8 }}</h5>
+                    <h6 class="card-subtitle">
+                      {% for tag in clip.tags.names %}<span class="badge text-bg-success me-1">{{ tag }}</span>{% endfor %}
+                    </h6>
+                    <h6 class="card-subtitle text-muted fs-6 my-3">{{ clip.url|truncatechars:30 }}</h6>
+                    <div class="card-text text-muted">{{ clip.content|striptags|truncatewords:20 }}</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% empty %}
+            <section class="col-12 px-5 py-6 py-xxl-10">
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col-12 col-md-11 col-lg-9 col-xl-7 col-xxl-6 text-center">
+                    <h1 class="display-3 fw-bld mb-3o mt-5">
+                      <span class="slant"><i class="bi bi-folder2-open"></i></span>
+                    </h1>
+                    <p class="lead mb-5">Nothing here…</p>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                      <a href="{% url 'about' %}" class="btn btn-light btn-lg px-4 gap-3">Get the Bookmarklet</a>
+                      <a href="{% url 'new' %}" class="btn btn-light btn-lg px-4">Write a Note</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-xl-1 col-lg-2 col-md-4 col-sm">
+        <aside>
+          <h5>
+            <i class="bi bi-funnel-fill me-2"></i>Tags
+          </h5>
+          <hr>
+          {% for tag in tags.all %}
+            <p>
+              <a class="link-primary link-opacity-0-hover"
+                 href="{% url 'dashboard' %}?tag={{ tag }}">{{ tag }}</a>
+            </p>
+          {% empty %}
+            <p>Add some tags to your clips to filter them here.</p>
+          {% endfor %}
+        </aside>
+      </div>
+    </div>
+    {% bootstrap_pagination clips %}
+  </div>
+{% endblock body %}

@@ -1,0 +1,32 @@
+{% extends "clipper/layout.html" %}
+{% load django_bootstrap5 %}
+{% block body %}
+  <nav aria-label="breadcrumb" class="my-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{% url 'dashboard' %}"><i class="bi bi-house-door-fill"></i></a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Account</li>
+    </ol>
+  </nav>
+  <div>
+    <div class="row align-items-center">
+      <div class="col col-lg-4 offset-lg-4">
+        <div class="d-flex flex-row my-4">
+          <img src="https://robohash.org/{{ user.username }}.png?set=set5&bgset=bg1&size=100x100"
+               alt="user picture"
+               width="64"
+               height="64"
+               class="rounded-circle me-2">
+          <h1>{{ user.username }}</h1>
+        </div>
+        <h3>Change Password</h3>
+        <form method="post" action="{% url 'account' %}">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          {% bootstrap_button button_type="submit" content="Change Password" %}
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock body %}
